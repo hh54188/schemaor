@@ -1,3 +1,8 @@
+## TODO:
+
+1. 嵌套？
+2. 强制转换？
+
 ## Reference
 
 - https://stackoverflow.com/questions/1889014/can-i-construct-a-javascript-object-without-using-the-new-keyword
@@ -16,10 +21,10 @@ function SomeConstructor(){
 ```
 
 ```javascript
-import {Schema, types} from 'js-schema'
+import {Schema, Types} from 'js-schema'
 
 const Person = Schema({
-  name: types.default('').string().isRequired()
+  name: types().default('').string().isRequired()
 })
 
 const person = Person({
@@ -30,7 +35,7 @@ const person = Person({
 
 ### Type
 
-string, number, boolean, object, array, map, set, regex
+string, number, boolean, object, array, regex
 
 ### Property
 
