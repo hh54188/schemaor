@@ -21,11 +21,12 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "babel-core": "^6.26.3",
+    "babel-core": "^7.0.0-beta.3",
+    "babel-register": "^7.0.0-beta.3",
     "lodash": "^4.17.11"
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js",
-    "test": "mocha --compilers js:babel-core/register test"
+    "test": "mocha --compilers js:babel-register test"
   }
 }
