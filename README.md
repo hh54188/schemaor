@@ -24,7 +24,7 @@ function SomeConstructor(){
 import {Schema, Types} from 'js-schema'
 
 const Person = Schema({
-  name: types().default('').string().isRequired()
+  name: Types().default('').string().isRequired()
 })
 
 const person = Person({
