@@ -28,6 +28,8 @@ const Schema = definition => {
     const originObj = {};
     const value = {};
     Object.keys(inputObj).forEach(inputKey => {
+      const inputValue = inputObj[inputKey];
+      value[inputKey] = inputValue;
       Object.defineProperty(originObj, inputKey, {
         get() {
           return value[inputKey];
@@ -50,6 +52,8 @@ const Schema = definition => {
         }
       });
     });
+
+    return originObj;
   };
 };
 
