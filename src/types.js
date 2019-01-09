@@ -12,7 +12,7 @@ function Types() {
   }
   this.validators = [];
   this.isRequired = false;
-  this.defaultValue = "";
+  this.defaultValue = void 0;
   this.possibleValues = [];
 }
 

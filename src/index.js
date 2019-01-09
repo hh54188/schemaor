@@ -1,6 +1,9 @@
 import Schema from "./schema";
 import Types from "./types";
 
+// ===== TEST LOGIC =====
+import _ from "lodash";
+
 const STRING_TARGET = "STRING_TARGET";
 const NUMBER_TARGET = 3;
 const BOOLEAN_TARGET = false;
@@ -12,19 +15,21 @@ const ARRAY_TARGET = [
   OBJECT_TARGET
 ];
 
-const TestSchema = Schema({
-  test: Types().string()
+const PersonSchema = Schema({
+  name: Types()
+    .string()
+    .default("TOM"),
+  age: Types()
+    .number()
+    .default(3)
 });
 
-const testObj = TestSchema({
-  test: "test"
-});
-
-// console.log({
-//   test: "test"
-// });
-
-console.log(testObj, JSON.stringify(testObj));
+console.log(
+  PersonSchema({
+    name: [],
+    age: 27
+  })
+);
 
 console.log(
   Types()
