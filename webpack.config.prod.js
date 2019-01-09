@@ -11,7 +11,6 @@ module.exports = {
     filename: "index.js",
     path: path.resolve(__dirname)
   },
-  devtool: "source-map",
   plugins: [
     new CleanWebpackPlugin(["./index.js", "./index.js.map"]),
     new HappyPack({
