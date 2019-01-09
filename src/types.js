@@ -6,7 +6,7 @@ const lodashWrap = fn => {
   };
 };
 
-function Types() {
+export function Types() {
   if (!(this instanceof Types)) {
     return new Types();
   }
@@ -50,5 +50,3 @@ Types.prototype = {
     return this;
   }
 };
-
-export default Types;

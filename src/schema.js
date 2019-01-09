@@ -1,4 +1,4 @@
-const Schema = definition => {
+export const Schema = definition => {
   const fieldValidator = {};
   const fieldDefaults = {};
   const fieldPossibleValues = {};
@@ -120,5 +120,3 @@ const Schema = definition => {
     return new Proxy(Object.assign({}, inputObj, remainObj), proxyHandler);
   };
 };
-
-export default Schema;
