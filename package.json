@@ -1,7 +1,7 @@
 {
   "name": "schemaor",
   "description": "Schema tool for creating schema for object",
-  "version": "alpha-0.0.4",
+  "version": "0.0.4",
   "devDependencies": {
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
