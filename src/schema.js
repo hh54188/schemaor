@@ -1,7 +1,11 @@
+import { Types } from "./types";
+import _ from "lodash";
+
 export const Schema = definition => {
   const fieldValidator = {};
   const fieldDefaults = {};
   const fieldPossibleValues = {};
+  const fieldSchemas = {};
 
   const fields = Object.keys(definition);
   const requiredFields = fields.filter(field => {
@@ -9,6 +13,14 @@ export const Schema = definition => {
   });
   fields.forEach(field => {
     const fieldValue = definition[field];
+    if (_.isFunction(fieldValue)) {
+      fieldSchemas[field] = fieldValue;
+      return;
+    }
+    if (!(fieldValue instanceof Types)) {
+      fieldDefaults[field] = fieldValue;
+      return;
+    }
     if (fieldValue.validators.length) {
       fieldValidator[field] = fieldValue.validators;
     }
@@ -40,7 +52,7 @@ export const Schema = definition => {
       }
       return result;
     });
-    // 检测传入的对象是否符合类型检测
+    // 检测传入的值是否符合类型检测
     const everyFieldPassValidator = inputFields.every(inputField => {
       const validators = fieldValidator[inputField];
       const fieldValue = inputObj[inputField];
@@ -56,11 +68,26 @@ export const Schema = definition => {
         return result;
       });
     });
+    // 检测传入值是否符合预先定义的 Schema
+    const everyFieldPassSchema = inputFields.every(inputField => {
+      const fieldSchema = fieldSchemas[inputField];
+      const fieldValue = inputObj[inputField];
+      if (!fieldSchema) {
+        return true;
+      }
+      try {
+        fieldSchema(fieldValue);
+      } catch (error) {
+        return false;
+      }
+      return true;
+    });
 
     if (
       includeNoDefinitionFields ||
       !everyFieldPassValidator ||
-      (requiredFields && requiredFields.length && !includeRequiredFields)
+      (requiredFields && requiredFields.length && !includeRequiredFields) ||
+      !everyFieldPassSchema
     ) {
       return null;
     }
