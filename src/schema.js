@@ -9,7 +9,7 @@ export const Schema = definition => {
 
   const fields = Object.keys(definition);
   const requiredFields = fields.filter(field => {
-    return definition[field].isRequired;
+    return definition[field] && definition[field].isRequired;
   });
   fields.forEach(field => {
     const fieldValue = definition[field];
@@ -76,7 +76,7 @@ export const Schema = definition => {
         return true;
       }
       try {
-        fieldSchema(fieldValue);
+        inputObj[inputField] = fieldSchema(fieldValue);
       } catch (error) {
         return false;
       }
@@ -97,10 +97,15 @@ export const Schema = definition => {
       return !inputFields.includes(field);
     });
 
-    const remainObj = {};
+    const lackedFieldObj = {};
     if (lackedFields && lackedFields.length) {
       lackedFields.forEach(lackedField => {
-        remainObj[lackedField] = fieldDefaults[lackedField];
+        if (fieldSchemas[lackedField]) {
+          lackedFieldObj[lackedField] = fieldSchemas[lackedField]();
+          return;
+        }
+
+        lackedFieldObj[lackedField] = fieldDefaults[lackedField];
       });
     }
 
@@ -144,6 +149,6 @@ export const Schema = definition => {
       }
     };
 
-    return new Proxy(Object.assign({}, inputObj, remainObj), proxyHandler);
+    return new Proxy(Object.assign({}, inputObj, lackedFieldObj), proxyHandler);
   };
 };
