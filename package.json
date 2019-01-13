@@ -1,7 +1,7 @@
 {
   "name": "schemaor",
   "description": "Schema tool for creating schema for object",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "devDependencies": {
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
@@ -22,6 +22,10 @@
   },
   "dependencies": {
     "lodash": "^4.17.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hh54188/schemaor"
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.dev.js",

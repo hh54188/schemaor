@@ -1,45 +1,66 @@
-## TODO:
+## Warning:
 
-1. 嵌套？
-2. 强制转换？
-3. valueOf 可能会与 default 和 string() 冲突
+**DO NOT USE THIS IN PRODUCTION, NOT FULLY TEST YET**
 
-## Reference
+## Install 
 
-- https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10
-- https://stackoverflow.com/questions/1889014/can-i-construct-a-javascript-object-without-using-the-new-keyword
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+```javascript
+npm install schemaor
+```
+or
+```javascript
+yarn add schemaor
+```
 
 ## Usage 
 
-```javascript
-// https://stackoverflow.com/questions/1889014/can-i-construct-a-javascript-object-without-using-the-new-keyword
-function SomeConstructor(){
-   if (!(this instanceof SomeConstructor)){
-        return new SomeConstructor();
-   }
-   //the constructor properties and methods here
-}
-```
+- Basic: Define schema without constraint:
 
 ```javascript
-import {Schema, Types} from 'js-schema'
-
+import {Schema} from 'schemaor'
 const Person = Schema({
-  name: Types().default('').string().isRequired()
+  name: '',
+  age: ''
 })
 
+// Instantiate:
 const person = Person({
-  name: 'liguangyi'
+  name: 'Lee',
+  age: 22
 })
 
 ```
 
-### Type
+- Field data type constraint:
 
-string, number, boolean, object, array, regex
+```javascript
+import {Schema, Types} from 'schemaor'
+const Person = Schema({
+  name: Types().string(),
+  age: Types().number()
+})
+```
 
-### Property
+- Other kind of constraint: `default()`, `required()`, `valueof()`
 
-default, isRequired, valueOf
+```javascript
+import {Schema, Types} from 'schemaor'
+const Person = Schema({
+  name: Types().string().default('').required(),
+  age: Types().number().default(22).required(),
+  title: Types().valueof('coder', 'programmer')
+})
+```
+
+- Nested schema
+
+```javascript
+import {Schema, Types} from 'schemaor'
+const Person = Schema({
+  job: Schema({
+    title: '',
+    company: ''
+  })
+})
+```
 
