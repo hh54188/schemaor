@@ -1,7 +1,11 @@
 import { Types } from "./types";
 import _ from "lodash";
 
-export const Schema = definition => {
+export const Schema = (definition = {}) => {
+  if (!_.isObject(definition) || _.isArray(definition)) {
+    throw new Error();
+  }
+
   const fieldValidator = {};
   const fieldDefaults = {};
   const fieldPossibleValues = {};

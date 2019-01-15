@@ -34,7 +34,11 @@ Types.prototype = {
     return this;
   },
   object: function() {
-    this.validators.push(lodashWrap(_.isObject));
+    // lodash 的 _.isObject 会将数组 [] 判断为 object
+    const isObject = function(value) {
+      return Object.prototype.toString.call(value) === "[object Object]";
+    };
+    this.validators.push(isObject);
     return this;
   },
   default: function(defaultValue) {
